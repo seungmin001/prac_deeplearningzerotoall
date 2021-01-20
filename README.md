@@ -23,5 +23,9 @@ Tensorflow ,Google Colab
 - a.assign_sub(b)  
     - python에서 a-=b 와 같은 연산.  
       
--variable.numpy()
+- variable.numpy()
     - tensor는 .numpy()를 호출하여 ndarray로 변환가능
+    
+- tf.random.normal([1], -100., 100.)
+    - Outputs random values from a normal distribution.
+    - [1] : shape, -100 : mean평균, 100 : stddev표준편차
