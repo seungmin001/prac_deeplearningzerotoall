@@ -23,4 +23,5 @@ Tensorflow ,Google Colab
 - a.assign_sub(b)  
     - python에서 a-=b 와 같은 연산.  
       
-
+-variable.numpy()
+    - tensor는 .numpy()를 호출하여 ndarray로 변환가능
