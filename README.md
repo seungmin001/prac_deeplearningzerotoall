@@ -12,7 +12,9 @@ Tensorflow ,Google Colab
   
 - 왜 tf.Variable()에서 name을 부여하는가?  
     * 파이썬 코드의 변수 이름은 프로그램이 종료되면 사라지지만, 지정해놓은 tensor의 name은 파일에 저장된다.
-    * https://stackoverflow.com/questions/33648167/why-do-we-name-variables-in-tensorflow/46419671
+    * https://stackoverflow.com/questions/33648167/why-do-we-name-variables-in-tensorflow/46419671  
+    
+- len(ndarray) : 행 개수 반환
 
 <br/>
 
@@ -44,4 +46,10 @@ Tensorflow ,Google Colab
     - Outputs random values from a normal distribution.
     - [1] : shape, -100 : mean평균, 100 : stddev표준편차
 
+- tf.data.dataset.from_tensor_slices()
+    - Dataset : tf에서 입력 파이프라인을 만들 수 있는 built-in-API
+    - 사용하려는 데이터로부터 Dataset 인스턴스를 만든다.
+    - tf.data.Dataset.from_tensor_slices((features,labels)) 한 개 이상의 numpy배열을 넣는 것도 가능하다.
+    - dataset.batch(length) : batch - 한 번에 학습되는 data 개수
+    
 <br/>
