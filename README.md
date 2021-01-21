@@ -1,6 +1,16 @@
 # prac_deeplearningzerotoall
 -----------
 Tensorflow ,Google Colab
+  
+<br/>
+
+# 궁금증과 해답
+---
+- data를 입력할 때 np.array([],dtype=np.float32)에서 dtype 명시 지정해주는 이유?
+    * 기본적으로 np.array()에서 생성할 때  지정해주지 않으면 (그 자료형 중에 가장 minimum한 것으로)float16으로 저장된다.
+    * tf.random.normal이 dtype=tf.dtypes.float32 이기 때문에 나중에 tf.matmul() 등의 연산 시 오류가 발생할 수 있다.
+
+<br/>
 
 # 함수 정리
 ------------
@@ -29,3 +39,5 @@ Tensorflow ,Google Colab
 - tf.random.normal([1], -100., 100.)
     - Outputs random values from a normal distribution.
     - [1] : shape, -100 : mean평균, 100 : stddev표준편차
+
+<br/>
