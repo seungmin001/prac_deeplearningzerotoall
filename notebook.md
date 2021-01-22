@@ -11,7 +11,11 @@
     * 파이썬 코드의 변수 이름은 프로그램이 종료되면 사라지지만, 지정해놓은 tensor의 name은 파일에 저장된다.
     * https://stackoverflow.com/questions/33648167/why-do-we-name-variables-in-tensorflow/46419671  
     
-
+- dataset iterator  
+   * tf.data.Iterator is the primary mechanism for enumerating elements of a tf.data.Dataset.
+   * It supports the Python Iterator protocol, which means it can be iterated over using a for-loop: **for element in dataset**
+   * or by fetching individual elements explicitly via get_next(): **iterator = iter(dataset) .. iterator.get_next()**  
+   
 <br/>
 
 ## 함수 정리(tensorflow)
@@ -48,15 +52,21 @@
     - tf.data.Dataset.from_tensor_slices((features,labels)) 한 개 이상의 numpy배열을 넣는 것도 가능하다.
     - dataset.batch(length) : batch - 한 번에 학습되는 data 개수
     
-- dataset.element_spec
+- dataset.element_spec  
     - The type specification of an element of this dataset.
     - dataset의 원소의 타입 상세정보
     
+- optimizer = tf.keras.optimizers.SGD(learning_rate=0.01)  
+   - Gradient descent (with momentum) optimizer.
+   - w = w - learning_rate * g (momentum == 0) 수행
+   - opt.minimize(loss(callable인..), update_var_list) <br/> == GradientTape작업 + opt.apply_gradients(grads_and_vars=zip(processed_grads, update_var_list))  
+   
 <br/>
 
 ## 함수 정리(numpy)
 
 - Numpy array(ndarray)의 여러가지 size함수  
+
   - Number of dimensions of numpy.ndarray: ndim
   - Shape of numpy.ndarray: shape
   - Size of numpy.ndarray (total number of elements): size
