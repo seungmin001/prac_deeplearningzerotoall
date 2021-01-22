@@ -16,9 +16,13 @@
    * It supports the Python Iterator protocol, which means it can be iterated over using a for-loop: **for element in dataset**
    * or by fetching individual elements explicitly via get_next(): **iterator = iter(dataset) .. iterator.get_next()**  
    
-- dataset 왜 batch로 전체 설정해두고 for loop로 iterate하면서 학습해야하나?  
-   batch size가 전체 data로 설정하는 경우에는 그냥 전체 data만 가지고 학습하면 안되나?(실제로는 학습이 안됨)
+- dataset 왜 batch를 전체범위로 설정해두고 for loop로 iterate하면서 학습해야하나?  
+   그냥 전체 data만 가지고 학습하면 안되나?(실제로는 전체 data 계속 돌려도 학습이 안됐음)
 
+- cross-entropy cost function에서 왜 one-hot encoding을 하지 않고 softmax 값을 갖고 하는가?  
+   - softmax는 확률으로 어느 정도 모델에 부합하는지 측정할 수 있기 때문에 발전시키기 좋다.
+   - one-hot은 1,0,0 식으로 극으로 나눈 결과여서 softmax에 비해 정밀한 cost 값을 구하지 못한다.  
+   
 
 <br/>
 
@@ -64,6 +68,11 @@
    - Gradient descent (with momentum) optimizer.
    - w = w - learning_rate * g (momentum == 0) 수행
    - opt.minimize(loss(callable인..), update_var_list) <br/> == GradientTape작업 + opt.apply_gradients(grads_and_vars=zip(processed_grads, update_var_list))  
+   
+- tf.reduce_sum(값, axis=1)
+   - axis=1 : column 기준 합치기. (8,3) 에서 axis=1 적용하여 sum하면 col이 하나로 합쳐져서 (8,1) 됨.
+   - http://taewan.kim/post/numpy_sum_axis/  
+   
    
 <br/>
 
