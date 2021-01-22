@@ -16,6 +16,10 @@
    * It supports the Python Iterator protocol, which means it can be iterated over using a for-loop: **for element in dataset**
    * or by fetching individual elements explicitly via get_next(): **iterator = iter(dataset) .. iterator.get_next()**  
    
+- dataset 왜 batch로 전체 설정해두고 for loop로 iterate하면서 학습해야하나?  
+   batch size가 전체 data로 설정하는 경우에는 그냥 전체 data만 가지고 학습하면 안되나?(실제로는 학습이 안됨)
+
+
 <br/>
 
 ## 함수 정리(tensorflow)
