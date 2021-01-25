@@ -22,6 +22,11 @@
 - cross-entropy cost function에서 왜 one-hot encoding을 하지 않고 softmax 값을 갖고 하는가?  
    - softmax는 확률으로 어느 정도 모델에 부합하는지 측정할 수 있기 때문에 발전시키기 좋다.
    - one-hot은 1,0,0 식으로 극으로 나눈 결과여서 softmax에 비해 정밀한 cost 값을 구하지 못한다.  
+
+- maxtrix multiplication vs element-wise multiply
+   - tf.matmul vs tf.multiply(or *)
+   - matmul은 행렬곱의 규칙을 지키는 행렬끼리
+   - dot연산은 shape가 같은 것들이 각 요소끼리 곱
    
 
 <br/>
@@ -73,7 +78,9 @@
    - axis=1 : column 기준 합치기. (8,3) 에서 axis=1 적용하여 sum하면 col이 하나로 합쳐져서 (8,1) 됨.
    - http://taewan.kim/post/numpy_sum_axis/  
    
-   
+- tf.nn.softmax(   logits, axis=None, name=None  )  
+   - softmax 값 반환
+
 <br/>
 
 ## 함수 정리(numpy)
