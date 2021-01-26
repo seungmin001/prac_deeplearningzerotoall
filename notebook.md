@@ -101,6 +101,16 @@ The given tensors are sliced along their first dimension. This operation preserv
 - tf.nn.softmax(   logits, axis=None, name=None  )  
    - softmax 값 반환
 
+- tf.nn.softmax_cross_entropy_with_logits(Y, logits)
+   - y_data와 logits(tf.matmul(X,W)+b 의 식)을 넣으면 softmax함수 적용과 cross-entropy 식을 구할 필요없이 cross-entropy로 얻을 수 있는 cost를 바로 반환.
+   
+- tf.argmax(값, axis=1)
+   - Returns the index with the largest value across axes of a tensor. axis설정가능
+   
+- tf.math.equal(X,Y) (tf.equal)   
+   - Returns the truth value of (x == y) **element-wise**.
+   
+   
 <br/>
 
 ## 함수 정리(numpy)
