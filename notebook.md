@@ -19,15 +19,26 @@
 - dataset 왜 batch를 전체범위로 설정해두고 for loop로 iterate하면서 학습해야하나?  
    그냥 전체 data만 가지고 학습하면 안되나?(실제로는 전체 data 계속 돌려도 학습이 안됐음)
 
-- cross-entropy cost function에서 왜 one-hot encoding을 하지 않고 softmax 값을 갖고 하는가?  
-   - softmax는 확률으로 어느 정도 모델에 부합하는지 측정할 수 있기 때문에 발전시키기 좋다.
-   - one-hot은 1,0,0 식으로 극으로 나눈 결과여서 softmax에 비해 정밀한 cost 값을 구하지 못한다.  
-
-- maxtrix multiplication vs element-wise multiply
+- maxtrix multiplication vs element-wise multiply  
    - tf.matmul vs tf.multiply(or *)
    - matmul은 행렬곱의 규칙을 지키는 행렬끼리
    - dot연산은 shape가 같은 것들이 각 요소끼리 곱
    
+- softmax : cross-entropy cost function에서 왜 one-hot encoding을 하지 않고 softmax 값을 갖고 하는가?  
+   - softmax는 확률으로 어느 정도 모델에 부합하는지 측정할 수 있기 때문에 발전시키기 좋다.
+   - one-hot은 1,0,0 식으로 극으로 나눈 결과여서 softmax에 비해 정밀한 cost 값을 구하지 못한다.  
+   
+- softmax : cross-entropy cost function에서 reduce_sum( input_tensor, axis=1)을 하는 이유?  
+   - y * log(s(h)) 결과 shape = (8,3). y와의 dot연산결과에 따라 각 행마다 하나의 열만 0이 아닌 값을 가진다.  
+   원래의 cost 공식에 의하면 이 상태에서  reduce_mean을 해서 기존 y와의 얼마만큼 차이인지를 나타내는 cost 값을 구해야한다.
+   - 근데 (8,3)에서 각 row당 2개의 col 값은 0이다.  
+   이 상태에서 reduce_mean을 할 경우 항 개수인 24로 나누게 되는데, 0인 값은 y값과의 비교에 이유가 없는 값이므로(y값에서도 0이니까) 이들은 제외해야하고 data개수인 8로 나누어야한다.
+   - 따라서 열 개수를  1으로 줄인다음 reduce_mean을 해야하기 때문에 reduce_sum axis=1을 해서 col을 하나로 만든 다음에, 평균값을 낸다.
+   - sum이므로 0인 열들은 영향을 주지 않게된다.
+   
+- cost 값의 변화를 관찰할 때, print문에 function을 쓰는 경우 cost_func()을 호출해서 값을 알아본다. 혹은 cost값 저장 변수를 따로 선언해 저장해 놓는다. -> lab6에서 cost.numpy()를 print해서 값이 변하지 않는 상황이 발생했는데 이를 알아채지 못해서 많은 시간을 소비함.  
+
+
 
 <br/>
 
@@ -38,7 +49,7 @@
       
 - tf.constant([3.0, 3.0])  
     - 상수 선언. 1x2 matrix  
-      
+                
 - tf.enable_eager_execution()  
     - TensorFlow supports eager execution and graph execution. In eager execution, operations are evaluated immediately. In graph execution, a computational graph is constructed for later evaluation.  
     - 그래프를 생성하지 않고 함수를 바로 실행하는 명령형 프로그래밍 환경으로 진행하기. TF2.0에서는 기본적으로 True  
@@ -75,8 +86,9 @@
    - opt.minimize(loss(callable인..), update_var_list) <br/> == GradientTape작업 + opt.apply_gradients(grads_and_vars=zip(processed_grads, update_var_list))  
    
 - tf.reduce_sum(값, axis=1)
+   - axis를 기준으로 합을 구하는 함수.
    - axis=1 : column 기준 합치기. (8,3) 에서 axis=1 적용하여 sum하면 col이 하나로 합쳐져서 (8,1) 됨.
-   - http://taewan.kim/post/numpy_sum_axis/  
+   - axis 기준에 관한 포스트 : http://taewan.kim/post/numpy_sum_axis/  
    
 - tf.nn.softmax(   logits, axis=None, name=None  )  
    - softmax 값 반환
