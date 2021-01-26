@@ -16,8 +16,10 @@
    * It supports the Python Iterator protocol, which means it can be iterated over using a for-loop: **for element in dataset**
    * or by fetching individual elements explicitly via get_next(): **iterator = iter(dataset) .. iterator.get_next()**  
    
-- dataset 왜 batch를 전체범위로 설정해두고 for loop로 iterate하면서 학습해야하나?  
-   그냥 전체 data만 가지고 학습하면 안되나?(실제로는 전체 data 계속 돌려도 학습이 안됐음)
+- dataset 왜 batch를 전체범위로 설정해두고 for loop로 iterate하면서 학습해야하나? 그냥 전체 data만 가지고 학습하면 안되나?  
+   - dataset은 tensorflow API로서 입력 파이프라인을 제공하는데, data의 크기가 클 수록 연산속도 향상에 많은 도움이 되어 사용하는 것이 좋다.
+   -  tf.data.Dataset.from_tensor_slices(),  tf.data.Dataset.from_tensors() 차이? : https://stackoverflow.com/questions/49579684/what-is-the-difference-between-dataset-from-tensors-and-dataset-from-tensor-slic
+   
 
 - maxtrix multiplication vs element-wise multiply  
    - tf.matmul vs tf.multiply(or *)
@@ -74,7 +76,13 @@
     - Dataset : tf에서 입력 파이프라인을 만들 수 있는 built-in-API
     - 사용하려는 데이터로부터 Dataset 인스턴스를 만든다.
     - tf.data.Dataset.from_tensor_slices((features,labels)) 한 개 이상의 numpy배열을 넣는 것도 가능하다.
-    - dataset.batch(length) : batch - 한 번에 학습되는 data 개수
+    - Creates a Dataset whose elements are slices of the given tensors.  
+The given tensors are sliced along their first dimension. This operation preserves the structure of the input tensors, removing the first dimension of each tensor and using it as the dataset dimension. All input tensors must have the same size in their first dimensions.
+
+- dataset.batch(batch_size) : batch - 한 번에 학습되는 data 개수. data를 batch_size 개수만큼씩 묶어서 outer dimension을 생성하고 반환환다.
+- dataset.shuffle(buffer_size) : 처음부터 buffer_size 개수까지 element를 섞는다.
+- dataset.repeat(count) : data를 count만큼 반복하여 늘린다. count가 3이면 전체 dataset에 같은 data가 3번 반복되어 저장됨.
+
     
 - dataset.element_spec  
     - The type specification of an element of this dataset.
