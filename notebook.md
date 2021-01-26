@@ -26,6 +26,10 @@
    - matmul은 행렬곱의 규칙을 지키는 행렬끼리
    - dot연산은 shape가 같은 것들이 각 요소끼리 곱
    
+- gradient tape의 사용 이유: https://stackoverflow.com/questions/53953099/what-is-the-purpose-of-the-tensorflow-gradient-tape
+   - eager모드는 graph모드와는 달리 즉시 실행하고 그래프 형태로 저장해두지 않기 때문에,  
+   optimizer.apply_graidents()에서 그 전에 실행했던 cost함수를 저장해 둘 수 없어서, tape를 사용하여 변수의 변화를 저장해두고 활용한다.
+   
 - softmax : cross-entropy cost function에서 왜 one-hot encoding을 하지 않고 softmax 값을 갖고 하는가?  
    - softmax는 확률으로 어느 정도 모델에 부합하는지 측정할 수 있기 때문에 발전시키기 좋다.
    - one-hot은 1,0,0 식으로 극으로 나눈 결과여서 softmax에 비해 정밀한 cost 값을 구하지 못한다.  
